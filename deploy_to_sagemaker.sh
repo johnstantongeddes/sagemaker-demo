@@ -63,5 +63,4 @@ aws sagemaker create-endpoint --endpoint-name $endpoint_name --endpoint-config-n
 # invoke endpoint!
 #######################
 
-#aws runtime.sagemaker invoke-endpoint --endpoint-name $endpoint_name --body "{\"hmtime\": \"1:30:00\", \"gender\": \"M\"}" response.txt
 aws runtime.sagemaker invoke-endpoint --endpoint-name $endpoint_name --body '{"hmtime": "1:18:00", "gender": "M"}' response.txt
