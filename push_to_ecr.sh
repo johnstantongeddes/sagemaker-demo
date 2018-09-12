@@ -4,7 +4,7 @@
 # set some parameters
 #####################
 
-algorithm_name=sgmkr-demo
+algorithm_name=jsg-sgmkr-demo
 
 # need AWS CLI and IAM role properly configured
 aws_account=$(aws sts get-caller-identity --query Account --output text)
@@ -64,4 +64,4 @@ aws sagemaker create-endpoint --endpoint-name $endpoint_name --endpoint-config-n
 #######################
 
 #aws runtime.sagemaker invoke-endpoint --endpoint-name $endpoint_name --body "{\"hmtime\": \"1:30:00\", \"gender\": \"M\"}" response.txt
-aws runtime.sagemaker invoke-endpoint --endpoint-name $endpoint_name --body '{"debt": 100000}' response.txt
+aws runtime.sagemaker invoke-endpoint --endpoint-name $endpoint_name --body '{"hmtime": "1:18:00", "gender": "M"}' response.txt
