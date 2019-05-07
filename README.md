@@ -60,3 +60,52 @@ Topics not covered here that are necessary for this to work:
 - AWS [Identity and Access Management](https://aws.amazon.com/iam/)
 
 
+## Docker Quickstart
+
+Make sure that you have Docker installed. Open a terminal in the project directory. 
+
+Build your Docker container:
+
+     docker build -t marathon-prediction .
+     
+Check that it's there:
+
+    docker image ls
+    
+Run your Docker container:
+
+    docker run -p 4000:8080 marathon-prediction
+    
+One of the most confusing parts of Docker (to me) is understanding ports. In this case, you're mapping your machine's port 4000 to the Docker containers published port 8080. You can confirm this by hitting the `ping` plumber endpoint in the `plumber.R` file.
+
+    curl http://localhost:4000/ping
+    
+Now you can run a prediction:
+
+     curl -v -d '{"hmtime": "1:30:20", "gender": "M"}' http://localhost:4000/invocations
+
+You should get a response like this!
+
+```
+*   Trying ::1...
+* TCP_NODELAY set
+* Connected to localhost (::1) port 4000 (#0)
+> POST /invocations HTTP/1.1
+> Host: localhost:4000
+> User-Agent: curl/7.54.0
+> Accept: */*
+> Content-Length: 36
+> Content-Type: application/x-www-form-urlencoded
+> 
+* upload completely sent off: 36 out of 36 bytes
+< HTTP/1.1 200 OK
+< Date: Tue, 07 May 2019 20:39:00 GMT
+< Content-Type: application/json
+< Date: Tue, 07 May 2019 20:39:00 GMT
+< Connection: close
+< Content-Length: 30
+< 
+* Closing connection 0
+{"marathon_time":["03:23:30"]}
+```
+

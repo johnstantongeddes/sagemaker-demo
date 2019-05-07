@@ -64,14 +64,17 @@ mpred <- function(req, res) {
   # read input data 
   preddat <- as.data.frame(fromJSON(req$postBody), stringsAsFactors = FALSE)
   #preddat <- as.data.frame(fromJSON("example.json"), stringsAsFactors = FALSE)
-  
+
   preddat$hmaratime <- toSeconds(preddat$hmtime)
   preddat$gender <- factor(preddat$gender, levels = factor_levels$gender)
   
   m_pred <- predict(lm2_save, newdata = preddat, se.fit = TRUE)
   
-  m_out <- toHMS(m_pred$fit)
+  m_out <- as.character(toHMS(m_pred$fit))
   
   return(list(marathon_time = m_out))
   
 }
+
+
+
